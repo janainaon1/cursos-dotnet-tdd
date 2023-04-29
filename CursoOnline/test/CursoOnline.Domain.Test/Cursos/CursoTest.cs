@@ -1,4 +1,5 @@
-﻿using ExpectedObjects;
+﻿using CursoOnline.Domain.Enums;
+using ExpectedObjects;
 using Xunit;
 
 namespace CursoOnline.Domain.Test.Cursos
@@ -13,7 +14,7 @@ namespace CursoOnline.Domain.Test.Cursos
                 Nome = "Curso de TDD",
                 // Erro exemplo: CargaHoraria = 80,
                 CargaHoraria = (double)80,
-                PublicoAlvo = "Estudante",
+                PublicoAlvo = PublicoAlvo.Estudante,
                 // Erro exemplo: Valor = 100
                 Valor = (decimal)100
             };
