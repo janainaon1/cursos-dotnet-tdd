@@ -1,4 +1,5 @@
 ﻿using CursoOnline.Domain.Enums;
+using CursoOnline.Domain.Test.Utils;
 using ExpectedObjects;
 using Xunit;
 
@@ -60,10 +61,13 @@ namespace CursoOnline.Domain.Test.Cursos
                 Valor = (decimal)500.50
             };
 
-            var mensagemErrorDominio = Assert.Throws<ArgumentException>(() =>
-                                        new Curso(cursoEsperado.Nome, cargaHorariaInvalida, cursoEsperado.PublicoAlvo, cursoEsperado.Valor)).Message;
+            // Antes do 'AssertExtension'
+            //var mensagemErrorDominio = Assert.Throws<ArgumentException>(() =>
+            //                            new Curso(cursoEsperado.Nome, cargaHorariaInvalida, cursoEsperado.PublicoAlvo, cursoEsperado.Valor)).Message;
+            //Assert.Equal(mensagemErrorDominio, mensagemError);
 
-            Assert.Equal(mensagemErrorDominio, mensagemError);
+            Assert.Throws<ArgumentException>(() => 
+                        new Curso(cursoEsperado.Nome, cargaHorariaInvalida, cursoEsperado.PublicoAlvo, cursoEsperado.Valor)).ValidarMensagem(mensagemError);
         }
 
         [Theory]
