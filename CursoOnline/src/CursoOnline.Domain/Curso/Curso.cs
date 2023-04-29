@@ -11,6 +11,11 @@ namespace CursoOnline.Domain
 
         public Curso(string nome, double cargaHoraria, PublicoAlvo publicoAlvo, decimal valor)
         {
+            if (string.IsNullOrEmpty(nome) || cargaHoraria < 1 || valor < 1)
+            {
+                throw new ArgumentException("Parâmetros inválidos.");
+            }
+
             Nome = nome;
             CargaHoraria = cargaHoraria;
             PublicoAlvo = publicoAlvo;
