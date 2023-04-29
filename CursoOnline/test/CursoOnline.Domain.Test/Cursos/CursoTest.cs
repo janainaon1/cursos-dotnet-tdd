@@ -1,4 +1,4 @@
-﻿using CursoOnline.Domain;
+﻿using ExpectedObjects;
 using Xunit;
 
 namespace CursoOnline.Domain.Test.Cursos
@@ -8,17 +8,25 @@ namespace CursoOnline.Domain.Test.Cursos
         [Fact(DisplayName = "CriacaoDoCurso")]
         public void CriarCurso()
         {
-            string nome = "Curso de TDD";
-            double cargaHoraria = 80;
-            string publicoAlvo = "Estudante";
-            decimal valor = 100;
+            var cursoEsperado = new
+            {
+                Nome = "Curso de TDD",
+                // Erro exemplo: CargaHoraria = 80,
+                CargaHoraria = (double)80,
+                PublicoAlvo = "Estudante",
+                // Erro exemplo: Valor = 100
+                Valor = (decimal)100
+            };
 
-            var cursoParaCriar = new Curso(nome, cargaHoraria, publicoAlvo, valor);
+            var cursoParaCriar = new Curso(cursoEsperado.Nome, cursoEsperado.CargaHoraria, cursoEsperado.PublicoAlvo, cursoEsperado.Valor);
 
-            Assert.Equal(nome, cursoParaCriar.Nome);
-            Assert.Equal(cargaHoraria, cursoParaCriar.CargaHoraria);
-            Assert.Equal(publicoAlvo, cursoParaCriar.PublicoAlvo);
-            Assert.Equal(valor, cursoParaCriar.Valor);
+            cursoEsperado.ToExpectedObject().ShouldMatch(cursoParaCriar);
+
+            // Sem a lib ExpectedObjects 
+            //Assert.Equal(nome, cursoParaCriar.Nome);
+            //Assert.Equal(cargaHoraria, cursoParaCriar.CargaHoraria);
+            //Assert.Equal(publicoAlvo, cursoParaCriar.PublicoAlvo);
+            //Assert.Equal(valor, cursoParaCriar.Valor);
         }
     }
 }
